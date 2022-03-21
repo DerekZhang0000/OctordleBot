@@ -237,6 +237,21 @@ def listComplete(list): #returns whether or not a list is narrowed down to its a
     else:
         return False
 
+def getShortestListAbove2(wordLists): #returns the shortest list with at least 3 possible words
+    lists = []
+    for i in range(8):
+        if listComplete(wordLists[i]):
+            continue
+        else:
+            lists.append(wordLists[i])
+    minimum = 9999
+    minList = []
+    for i in range(len(lists)):
+        if len(lists[i]) < minimum and len(lists[i]) > 2:
+            minimum = len(lists[i])
+            minList = lists[i]
+    return minList
+
 def getShortestList(wordLists): #returns the shortest list with at least 2 possible words
     lists = []
     for i in range(8):
@@ -269,7 +284,9 @@ def test_highestFrequency8(n):   #tests search using letter frequencies
         while steps < 6:
             if allComplete(wordLists):
                 break
-            wordList = getShortestList(wordLists)
+            wordList = getShortestListAbove2(wordLists)
+            if len(wordList) == 0:
+                wordList = getShortestList(wordLists)
             if steps < 5:
                 if isBlimp(wordList):
                     inputWord = blimpSearch(wordList)
@@ -305,4 +322,4 @@ def test_highestFrequency8(n):   #tests search using letter frequencies
         success_rate = 1 - (game_data["DNF"] / (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"] + game_data["DNF"]))
         print("highest_freq8", (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"] + game_data["DNF"]), game_data, success_rate, game_data_avg(game_data))
             
-# test_highestFrequency8(1000)
+test_highestFrequency8(1000)
