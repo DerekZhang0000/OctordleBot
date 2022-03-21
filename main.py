@@ -13,7 +13,7 @@ def get_letter_dictionary(word_list):   #gets a letter dictionary of the each le
             letter_dictionary.update({letter:(letter_dictionary[letter] + 1)})
     return letter_dictionary
 
-def game_data_avg(game_data):   #returns average steps to complete a game
+def game_data_avg(game_data):   #returns average steps left after completion
     try:
         return (game_data["1"] + 2 * game_data["2"] + 3 * game_data["3"] + 4 * game_data["4"] + 5 * game_data["5"] + 6 * game_data["0"]) / (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"])
     except:
