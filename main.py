@@ -477,14 +477,3 @@ def test_highestFrequency(n):   #tests search using letter frequencies
             print("highest_freq", (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["6"] + game_data["DNF"]), game_data, success_rate, game_data_avg(game_data))
             
 # test_highestFrequency(1000)
-# max = 0
-# ld = get_letter_dictionary(available_words)
-# for word1 in wordsAllowed:
-#     for word2 in wordsAllowed:
-#         if word1[0] in word2 or word1[1] in word2 or word1[2] in word2 or word1[3] in word2 or word1[4] in word2:
-#             continue
-#         score = get_word_value(word1, ld) + get_word_value(word2, ld)
-#         if score > max:
-#             max = score
-#             print(word1, word2, score)
-            
