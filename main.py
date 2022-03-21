@@ -126,7 +126,8 @@ def isBlimp(wordList):   #returns whether or not a word list has the "blimp prob
         for word2 in wordList:
             if word2 == word1:
                 continue
-            if len(list(set(word1) & set(word2))) >= 3: # if words have at least 3 letters in common
+            length = len(list(set(word1) & set(word2)))
+            if length >= 3 and length != 5: # if words have at least 3 letters in common
                 commonLetters = ""
                 for letters in list(set(word1) & set(word2)):
                     commonLetters += letters
@@ -145,14 +146,15 @@ def getBlimpMax(wordList, commonLetters, totalWords=wordsAllowed): #returns high
     return max(wordValues, key=wordValues.get)
 
 def blimpSearch(wordList):  #made to avoid the "blimp problem" where a search would be narrowed down best by a word already filtered out
-    threshold = math.floor(len(wordList)/2) # ex: match, batch, latch are possible answers, blimp would be a good filter word
+    threshold = math.floor(len(wordList)/2) # ex: match, batch, latch, patch are possible answers, blimp would be a good filter word
     commonLettersDict = {}
     blimpWords = {}
     for word1 in wordList:
         for word2 in wordList:
             if word2 == word1:
                 continue
-            if len(list(set(word1) & set(word2))) >= 3: # if words have at least 3 letters in common
+            length = len(list(set(word1) & set(word2)))
+            if length >= 3 and length != 5: # if words have at least 3 letters in common
                 commonLetters = ""
                 for letters in list(set(word1) & set(word2)):
                     commonLetters += letters
