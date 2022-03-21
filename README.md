@@ -1,7 +1,7 @@
 # OctordleBot
 This AI currently has an accuracy of approximately 99.5% and an average steps-per-game of 10.42 (2.58 steps remaining) using the answer list (2315 words)-
 <br>
-![Accuracy](accuracy.JPG)
+![Accuracy](data.JPG)
 <br>
 In the image above, the number of guesses remaining is shown in a dictionary (5: 0, 4: 106...).
 The numbers following the dictionary is the accuracy (percent of games completed) and the average steps per completed game, respectively.
