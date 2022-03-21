@@ -259,7 +259,6 @@ def test_highestFrequency8(n):   #tests search using letter frequencies
             test_word = random.choice(wordLists[0])
             if test_word not in test_words:
                 test_words.append(test_word)
-        test_words[0] == "aahed"
         for i in range(8):
             wordLists[i] = filter_words(wordLists[i], "acnes", test_words[i])
         for i in range(8):

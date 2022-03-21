@@ -72,13 +72,13 @@ while(1):
     driver.get("https://octordle.com/?mode=free")
     driver.execute_script("document.getElementById('widescreen-yes').click()")
     wordLists = [[i[:-1] for i in open("words.txt", "r").readlines()] for j in range(8)]
-    keyboardIn("acnes")
+    keyboardIn("salet")
     for i in range(8):
-        wordLists[i] = gameEngine.gameFilter("acnes", getWordState(i, 0), wordLists[i])
-    keyboardIn("lirot")
-    for i in range(8):
-        wordLists[i] = gameEngine.gameFilter("lirot", getWordState(i, 1), wordLists[i])
-    rowIndex = 2
+        wordLists[i] = gameEngine.gameFilter("salet", getWordState(i, 0), wordLists[i])
+    # keyboardIn("lirot")
+    # for i in range(8):
+    #     wordLists[i] = gameEngine.gameFilter("lirot", getWordState(i, 1), wordLists[i])
+    rowIndex = 1
     try:
         while not allComplete():
             runTurn(rowIndex)
