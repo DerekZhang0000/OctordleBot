@@ -322,4 +322,4 @@ def test_highestFrequency8(n):   #tests search using letter frequencies
         success_rate = 1 - (game_data["DNF"] / (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"] + game_data["DNF"]))
         print("highest_freq8", (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"] + game_data["DNF"]), game_data, success_rate, game_data_avg(game_data))
             
-test_highestFrequency8(1000)
+# test_highestFrequency8(1000)
