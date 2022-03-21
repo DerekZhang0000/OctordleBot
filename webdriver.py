@@ -43,21 +43,6 @@ def allComplete():
             return False
     return True
 
-def getShortestListAbove2():
-    lists = []
-    for i in range(8):
-        if colComplete(i):
-            continue
-        else:
-            lists.append(wordLists[i])
-    minimum = 9999
-    minList = []
-    for i in range(len(lists)):
-        if len(lists[i]) < minimum and len(lists[i]) > 2:
-            minimum = len(lists[i])
-            minList = lists[i]
-    return minList
-
 def getShortestList():
     lists = []
     for i in range(8):
@@ -89,6 +74,14 @@ def getLongestList(): #returns the longest list
     return maxList
 
 def runTurn(rowIndex):
+    for wordList in wordLists:
+        if len(wordList) == 1 and wordList[0] not in answers:
+            inputWord = wordList[0]
+            keyboardIn(inputWord)
+            answers.append(inputWord)
+            for i in range(8):
+                wordLists[i] = gameEngine.gameFilter(inputWord, getWordState(i, rowIndex), wordLists[i])
+            return
     if rowIndex > 2:
         wordList = getShortestList()
     else:
@@ -103,17 +96,16 @@ def runTurn(rowIndex):
     keyboardIn(inputWord)
     for i in range(8):
         wordLists[i] = gameEngine.gameFilter(inputWord, getWordState(i, rowIndex), wordLists[i])
+    answers.append(inputWord)
     
 while(1):
     driver.get("https://octordle.com/?mode=free")
     driver.execute_script("document.getElementById('widescreen-yes').click()")
     wordLists = [[i[:-1] for i in open("words.txt", "r").readlines()] for j in range(8)]
+    answers = []
     keyboardIn("salet")
     for i in range(8):
         wordLists[i] = gameEngine.gameFilter("salet", getWordState(i, 0), wordLists[i])
-    # keyboardIn("lirot")
-    # for i in range(8):
-    #     wordLists[i] = gameEngine.gameFilter("lirot", getWordState(i, 1), wordLists[i])
     rowIndex = 1
     try:
         while not allComplete():

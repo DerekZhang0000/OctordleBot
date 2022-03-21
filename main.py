@@ -237,21 +237,6 @@ def listComplete(list): #returns whether or not a list is narrowed down to its a
     else:
         return False
 
-def getShortestListAbove2(wordLists): #returns the shortest list with at least 3 possible words
-    lists = []
-    for i in range(8):
-        if listComplete(wordLists[i]):
-            continue
-        else:
-            lists.append(wordLists[i])
-    minimum = 9999
-    minList = []
-    for i in range(len(lists)):
-        if len(lists[i]) < minimum and len(lists[i]) > 2:
-            minimum = len(lists[i])
-            minList = lists[i]
-    return minList
-
 def getLongestList(wordLists): #returns the longest list
     lists = []
     for i in range(8):
