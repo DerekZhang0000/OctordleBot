@@ -60,10 +60,13 @@ def getShortestList():
 
 def runTurn(rowIndex):
     wordList = getShortestList()
-    if gameEngine.isBlimp(wordList):
-        inputWord = gameEngine.blimpSearch(wordList)
-    else:
+    if rowIndex == 12:
         inputWord = gameEngine.getMaxValue1(wordList)
+    else:
+        if gameEngine.isBlimp(wordList):
+            inputWord = gameEngine.blimpSearch(wordList)
+        else:
+            inputWord = gameEngine.getMaxValue1(wordList)
     keyboardIn(inputWord)
     for i in range(8):
         wordLists[i] = gameEngine.gameFilter(inputWord, getWordState(i, rowIndex), wordLists[i])
