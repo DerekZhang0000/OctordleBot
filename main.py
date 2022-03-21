@@ -1,5 +1,4 @@
 import random
-import threading
 import math
 
 available_words = [i[:-1] for i in open("words.txt", "r").readlines()]  #list of all possible answers
@@ -223,18 +222,6 @@ def gameFilter(word, wordState, word_list):   #filters words using game output i
     if len(set(list(word))) != len(word):
         word_list = word_state_repetition_filter(word, wordState, word_list)
     return word_list
-
-def validState(wordState):  #returns whether or not a word state is valid
-    if len(wordState) != 5:
-        return False
-    else:
-        try:
-            for char in wordState:
-                if int(char) < 0 or int(char) > 2:
-                    return False
-        except:
-            return False
-    return True
 
 def allComplete(wordLists): #returns whether or not all lists are narrowed down to their answers
     for wordList in wordLists:
