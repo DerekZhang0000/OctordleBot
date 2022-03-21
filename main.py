@@ -15,7 +15,7 @@ def get_letter_dictionary(word_list):   #gets a letter dictionary of the each le
 
 def game_data_avg(game_data):   #returns average steps left after completion
     try:
-        return (game_data["1"] + 2 * game_data["2"] + 3 * game_data["3"] + 4 * game_data["4"] + 5 * game_data["5"] + 6 * game_data["0"]) / (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"])
+        return (game_data["1"] + 2 * game_data["2"] + 3 * game_data["3"] + 4 * game_data["4"] + 5 * game_data["5"] + 0 * game_data["0"]) / (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"])
     except:
         return 0
 
@@ -224,101 +224,3 @@ def gameFilter(word, wordState, word_list):   #filters words using game output i
     if len(set(list(word))) != len(word):
         word_list = word_state_repetition_filter(word, wordState, word_list)
     return word_list
-
-def allComplete(wordLists): #returns whether or not all lists are narrowed down to their answers
-    for wordList in wordLists:
-        if len(wordList) != 1:
-            return False
-    return True
-
-def listComplete(list): #returns whether or not a list is narrowed down to its answer
-    if len(list) == 1:
-        return True
-    else:
-        return False
-
-def getLongestList(wordLists): #returns the longest list
-    lists = []
-    for i in range(8):
-        if listComplete(wordLists[i]):
-            continue
-        else:
-            lists.append(wordLists[i])
-    maximum = 0
-    maxList = []
-    for i in range(len(lists)):
-        if len(lists[i]) > maximum:
-            maximum = len(lists[i])
-            maxList = lists[i]
-    return maxList
-
-def getShortestList(wordLists): #returns the shortest list with at least 2 possible words
-    lists = []
-    for i in range(8):
-        if listComplete(wordLists[i]):
-            continue
-        else:
-            lists.append(wordLists[i])
-    minimum = 9999
-    minList = []
-    for i in range(len(lists)):
-        if len(lists[i]) < minimum and len(lists[i]) > 1:
-            minimum = len(lists[i])
-            minList = lists[i]
-    return minList
-
-def test_highestFrequency8(n):   #tests search using letter frequencies
-    game_data = {"5": 0, "4": 0, "3": 0, "2": 0, "1": 0, "0": 0, "DNF": 0}
-    for i in range(n):
-        wordLists = [[i[:-1] for i in open("words.txt", "r").readlines()] for j in range(8)]
-        test_words = []
-        while len(test_words) < 8:
-            test_word = random.choice(wordLists[0])
-            if test_word not in test_words:
-                test_words.append(test_word)
-        for i in range(8):
-            wordLists[i] = filter_words(wordLists[i], "salet", test_words[i])
-        steps = 1
-        while steps < 6:
-            if allComplete(wordLists):
-                break
-            if steps > 3:
-                wordList = getShortestList(wordLists)
-            else:
-                wordList = getLongestList(wordLists)
-            if steps < 5:
-                if isBlimp(wordList):
-                    inputWord = blimpSearch(wordList)
-                else:
-                    inputWord = getMaxValue1(wordList)
-            else:
-                inputWord = getMaxValue1(wordList)
-            for i in range(8):
-                if listComplete(wordLists[i]):
-                    continue
-                wordLists[i] = filter_words(wordLists[i], inputWord, test_words[i])
-                if listComplete(wordLists[i]):
-                    for j in range(8):
-                        if listComplete(wordLists[j]):
-                            continue
-                        wordLists[j] = filter_words(wordLists[j], wordLists[i][0], test_words[j])
-            steps += 1
-        steps += 7
-        if steps == 8:
-            game_data.update({"5": game_data["5"] + 1})
-        elif steps == 9:
-            game_data.update({"4": game_data["4"] + 1})
-        elif steps == 10:
-            game_data.update({"3": game_data["3"] + 1})
-        elif steps == 11:
-            game_data.update({"2": game_data["2"] + 1})
-        elif steps == 12:
-            game_data.update({"1": game_data["1"] + 1})
-        elif steps == 13:
-            game_data.update({"0": game_data["0"] + 1})
-        else:
-            game_data.update({"DNF": game_data["DNF"] + 1})
-        success_rate = 1 - (game_data["DNF"] / (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"] + game_data["DNF"]))
-        print("highest_freq8", (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"] + game_data["DNF"]), game_data, success_rate, game_data_avg(game_data))
-            
-# test_highestFrequency8(1000)

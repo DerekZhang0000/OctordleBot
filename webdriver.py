@@ -1,5 +1,4 @@
 import main as gameEngine
-import time
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -73,6 +72,39 @@ def getLongestList(): #returns the longest list
             maxList = lists[i]
     return maxList
 
+def allAbove(n):
+    for i in range(8):
+        if colComplete(i):
+            continue
+        if len(wordLists[i]) < n:
+            return False
+    return True
+
+def allBelow(n):
+    for i in range(8):
+        if colComplete(i):
+            continue
+        if len(wordLists[i]) > n:
+            return False
+    return True
+
+def getShortestListAbove(n):
+    if allBelow(n + 1):
+        return []
+    lists = []
+    for i in range(8):
+        if colComplete(i):
+            continue
+        else:
+            lists.append(wordLists[i])
+    minimum = 9999
+    minList = []
+    for i in range(len(lists)):
+        if len(lists[i]) < minimum and len(lists[i]) > 2:
+            minimum = len(lists[i])
+            minList = lists[i]
+    return minList
+
 def runTurn(rowIndex):
     for wordList in wordLists:
         if len(wordList) == 1 and wordList[0] not in answers:
@@ -81,11 +113,9 @@ def runTurn(rowIndex):
             answers.append(inputWord)
             for i in range(8):
                 wordLists[i] = gameEngine.gameFilter(inputWord, getWordState(i, rowIndex), wordLists[i])
+            # print((rowIndex + 1), inputWord, wordLists)
             return
-    if rowIndex > 2:
-        wordList = getShortestList()
-    else:
-        wordList = getLongestList()
+    wordList = getLongestList()
     if rowIndex == 12:
         inputWord = gameEngine.getMaxValue1(wordList)
     else:
@@ -97,7 +127,9 @@ def runTurn(rowIndex):
     for i in range(8):
         wordLists[i] = gameEngine.gameFilter(inputWord, getWordState(i, rowIndex), wordLists[i])
     answers.append(inputWord)
-    
+    # print((rowIndex + 1), inputWord, wordLists)
+
+game_data = {"5": 0, "4": 0, "3": 0, "2": 0, "1": 0, "0": 0, "DNF": 0}
 while(1):
     driver.get("https://octordle.com/?mode=free")
     driver.execute_script("document.getElementById('widescreen-yes').click()")
@@ -112,7 +144,16 @@ while(1):
             runTurn(rowIndex)
             rowIndex += 1
     except:
-        pass
-    time.sleep(1)
+        while(1):
+            1
+        game_data.update({"DNF": game_data["DNF"] + 1})
+        success_rate = 1 - (game_data["DNF"] / (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"] + game_data["DNF"]))
+        print("highest_freq8", (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"] + game_data["DNF"]), game_data, success_rate, gameEngine.game_data_avg(game_data))
+        driver.execute_script("document.getElementById('reset_free').click()")
+        driver.switch_to.alert.accept()
+        continue
+    game_data.update({str(13 - rowIndex): game_data[str(13 - rowIndex)] + 1})
+    success_rate = 1 - (game_data["DNF"] / (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"] + game_data["DNF"]))
+    print("highest_freq8", (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"] + game_data["DNF"]), game_data, success_rate, gameEngine.game_data_avg(game_data))
     driver.execute_script("document.getElementById('reset_free').click()")
     driver.switch_to.alert.accept()
