@@ -79,9 +79,12 @@ while(1):
     for i in range(8):
         wordLists[i] = gameEngine.gameFilter("lirot", getWordState(i, 1), wordLists[i])
     rowIndex = 2
-    while not allComplete():
-        runTurn(rowIndex)
-        rowIndex += 1
+    try:
+        while not allComplete():
+            runTurn(rowIndex)
+            rowIndex += 1
+    except:
+        pass
     time.sleep(1)
     driver.execute_script("document.getElementById('reset_free').click()")
     driver.switch_to.alert.accept()
