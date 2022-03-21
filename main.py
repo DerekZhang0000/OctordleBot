@@ -270,8 +270,11 @@ def test_highestFrequency8(n):   #tests search using letter frequencies
             if allComplete(wordLists):
                 break
             wordList = getShortestList(wordLists)
-            if isBlimp(wordList):
-                inputWord = blimpSearch(wordList)
+            if steps < 5:
+                if isBlimp(wordList):
+                    inputWord = blimpSearch(wordList)
+                else:
+                    inputWord = getMaxValue1(wordList)
             else:
                 inputWord = getMaxValue1(wordList)
             for i in range(8):
