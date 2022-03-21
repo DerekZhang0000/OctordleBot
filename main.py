@@ -118,7 +118,7 @@ def get_word_value(word, letter_dictionary, counted_word=""):   #gets the word v
     return value
 
 def isBlimp(wordList):   #returns whether or not a word list has the "blimp problem"
-    if len(wordList) > 10 or len(wordList) < 3:
+    if len(wordList) > 6 or len(wordList) < 3:
         return False
     threshold = math.floor(len(wordList)/2)
     commonLettersDict = {}
@@ -259,6 +259,7 @@ def test_highestFrequency8(n):   #tests search using letter frequencies
             test_word = random.choice(wordLists[0])
             if test_word not in test_words:
                 test_words.append(test_word)
+        test_words[0] == "aahed"
         for i in range(8):
             wordLists[i] = filter_words(wordLists[i], "acnes", test_words[i])
         for i in range(8):
