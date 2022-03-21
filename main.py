@@ -252,6 +252,21 @@ def getShortestListAbove2(wordLists): #returns the shortest list with at least 3
             minList = lists[i]
     return minList
 
+def getLongestList(wordLists): #returns the longest list
+    lists = []
+    for i in range(8):
+        if listComplete(wordLists[i]):
+            continue
+        else:
+            lists.append(wordLists[i])
+    maximum = 0
+    maxList = []
+    for i in range(len(lists)):
+        if len(lists[i]) > maximum:
+            maximum = len(lists[i])
+            maxList = lists[i]
+    return maxList
+
 def getShortestList(wordLists): #returns the shortest list with at least 2 possible words
     lists = []
     for i in range(8):
@@ -277,16 +292,15 @@ def test_highestFrequency8(n):   #tests search using letter frequencies
             if test_word not in test_words:
                 test_words.append(test_word)
         for i in range(8):
-            wordLists[i] = filter_words(wordLists[i], "acnes", test_words[i])
-        for i in range(8):
-            wordLists[i] = filter_words(wordLists[i], "lirot", test_words[i])
-        steps = 0
+            wordLists[i] = filter_words(wordLists[i], "salet", test_words[i])
+        steps = 1
         while steps < 6:
             if allComplete(wordLists):
                 break
-            wordList = getShortestListAbove2(wordLists)
-            if len(wordList) == 0:
+            if steps > 3:
                 wordList = getShortestList(wordLists)
+            else:
+                wordList = getLongestList(wordLists)
             if steps < 5:
                 if isBlimp(wordList):
                     inputWord = blimpSearch(wordList)
@@ -304,7 +318,7 @@ def test_highestFrequency8(n):   #tests search using letter frequencies
                             continue
                         wordLists[j] = filter_words(wordLists[j], wordLists[i][0], test_words[j])
             steps += 1
-        steps += 8
+        steps += 7
         if steps == 8:
             game_data.update({"5": game_data["5"] + 1})
         elif steps == 9:

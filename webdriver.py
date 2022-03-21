@@ -73,10 +73,26 @@ def getShortestList():
             minList = lists[i]
     return minList
 
+def getLongestList(): #returns the longest list
+    lists = []
+    for i in range(8):
+        if colComplete(i):
+            continue
+        else:
+            lists.append(wordLists[i])
+    maximum = 0
+    maxList = []
+    for i in range(len(lists)):
+        if len(lists[i]) > maximum:
+            maximum = len(lists[i])
+            maxList = lists[i]
+    return maxList
+
 def runTurn(rowIndex):
-    wordList = getShortestListAbove2()
-    if len(wordList) == 0:
+    if rowIndex > 2:
         wordList = getShortestList()
+    else:
+        wordList = getLongestList()
     if rowIndex == 12:
         inputWord = gameEngine.getMaxValue1(wordList)
     else:
