@@ -144,8 +144,8 @@ while(1):
             runTurn(rowIndex)
             rowIndex += 1
     except:
-        while(1):
-            1
+        # while(1):
+        #     1
         game_data.update({"DNF": game_data["DNF"] + 1})
         success_rate = 1 - (game_data["DNF"] / (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"] + game_data["DNF"]))
         print("highest_freq8", (game_data["1"] + game_data["2"] + game_data["3"] + game_data["4"] + game_data["5"] + game_data["0"] + game_data["DNF"]), game_data, success_rate, gameEngine.game_data_avg(game_data))
