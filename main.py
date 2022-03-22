@@ -1,8 +1,7 @@
-import random
 import math
 
 available_words = [i[:-1] for i in open("words.txt", "r").readlines()]  #list of all possible answers
-wordsAllowed = [i[:-1] for i in open("wordsAllowed.txt", "r").readlines()]  #list of all possible entries
+wordsAllowed = [i[:-1] for i in open("wordsAllowed.txt", "r").readlines()] + available_words #list of all possible entries
 
 def get_letter_dictionary(word_list):   #gets a letter dictionary of the each letter and the number of times it appears in the word list
     letter_dictionary = {}
