@@ -3,7 +3,7 @@ This AI currently has an accuracy of approximately 99.67% and an average steps-p
 <br>
 ![Accuracy](dat.JPG)
 <br>
-In the image above, the number of guesses remaining is shown in a dictionary (5: 0, 4: 106...).
+In the image above, the number of guesses remaining is shown in a dictionary (5: 0, 4: 2...).
 The numbers following the dictionary is the accuracy (percent of games completed) and the average steps remaining per completed game, respectively.
 <br>
 <br>
