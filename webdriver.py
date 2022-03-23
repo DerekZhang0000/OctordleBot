@@ -137,7 +137,7 @@ while(1):
     answers = []
     keyboardIn("alert")
     for i in range(8):
-        wordLists[i] = gameEngine.gameFilter("alert", getWordState(i, 0), wordLists[i])
+        wordLists[i] = gameEngine.gameFilter("salet", getWordState(i, 0), wordLists[i])
     rowIndex = 1
     try:
         while not allComplete():
