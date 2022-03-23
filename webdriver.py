@@ -135,7 +135,7 @@ while(1):
     driver.execute_script("document.getElementById('widescreen-yes').click()")
     wordLists = [[i[:-1] for i in open("words.txt", "r").readlines()] for j in range(8)]
     answers = []
-    keyboardIn("alert")
+    keyboardIn("salet")
     for i in range(8):
         wordLists[i] = gameEngine.gameFilter("salet", getWordState(i, 0), wordLists[i])
     rowIndex = 1
